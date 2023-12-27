@@ -3,6 +3,9 @@ from PIL import ImageTk, Image
 from tkinter.messagebox import showinfo
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 import os
+import pyautogui
+
+
 
 def newfile():
     global file
@@ -54,7 +57,7 @@ if __name__ == "__main__":
     root.iconphoto(False, ImageTk.PhotoImage(img))
     root.geometry("500x400")
 
-    TextArea = Text(root, font="lucida 13") #adding TextArea to write text
+    TextArea = Text(root, font="lucida 13",undo=True) #adding TextArea to write text
     file=None #initially file is none
     TextArea.pack(expand=True, fill=BOTH) #packing TextArea
 
@@ -73,6 +76,9 @@ if __name__ == "__main__":
     editmenu.add_command(label="Cut", command=cut) #adding cut option
     editmenu.add_command(label="Copy", command=copy) #adding copy option
     editmenu.add_command(label="Paste", command=paste) #adding paste option
+    editmenu.add_separator() #adding separator
+    editmenu.add_command(label="Undo", command=TextArea.edit_undo) #adding undo option
+    editmenu.add_command(label="Redo", command=TextArea.edit_redo) #adding redo option
     menu.add_cascade(label="Edit", menu=editmenu) #adding edit menu to menu bar
     
     helpmenu=Menu(menu, tearoff=0) #creating help menu
@@ -87,5 +93,5 @@ if __name__ == "__main__":
     Scroll.config(command=TextArea.yview) #configuring scrollbar
     TextArea.config(yscrollcommand=Scroll.set) #configuring TextArea
 
-
+    
     root.mainloop()
