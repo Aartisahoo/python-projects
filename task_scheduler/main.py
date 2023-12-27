@@ -54,30 +54,30 @@ def main():
     print("Event created: %s" % (event.get("htmlLink")))
 
     # *************listing events(reading from google calendar)*************
-    # # Call the Calendar API
-    # now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
-    # print("Getting the upcoming 10 events")
-    # events_list = (
-    #     service.events()
-    #     .list(
-    #         calendarId="primary",
-    #         timeMin=now,
-    #         maxResults=10,
-    #         singleEvents=True,
-    #         orderBy="startTime",
-    #     )
-    #     .execute()
-    # )
-    # events = events_list.get("items", [])
+    # Call the Calendar API
+    now = datetime.datetime.utcnow().isoformat() + "Z"  # 'Z' indicates UTC time
+    print("Getting the upcoming 10 events")
+    events_list = (
+        service.events()
+        .list(
+            calendarId="primary",
+            timeMin=now,
+            maxResults=10,
+            singleEvents=True,
+            orderBy="startTime",
+        )
+        .execute()
+    )
+    events = events_list.get("items", [])
 
-    # if not events:
-    #   print("No upcoming events found.")
-    #   return
+    if not events:
+      print("No upcoming events found.")
+      return
 
-    # # Prints the start and name of the next 10 events
-    # for event in events:
-    #   start = event["start"].get("dateTime", event["start"].get("date"))
-    #   print(start, event["summary"])
+    # Prints the start and name of the next 10 events
+    for event in events:
+      start = event["start"].get("dateTime", event["start"].get("date"))
+      print(start, event["summary"])
 
   except HttpError as error:
     print(f"An error occurred: {error}")
