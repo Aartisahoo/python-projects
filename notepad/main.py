@@ -53,7 +53,7 @@ def about():
 if __name__ == "__main__":
     root = Tk()
     root.title("Untitled-Notepad")
-    img = Image.open(r"notepad\ntpdic.png")
+    img = Image.open((os.path.join("notepad","ntpdic.png")))
     root.iconphoto(False, ImageTk.PhotoImage(img))
     root.geometry("500x400")
 
